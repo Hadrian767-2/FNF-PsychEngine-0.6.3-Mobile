@@ -92,10 +92,16 @@ class StorageUtil
 
 	public static function checkExternalPaths(?splitStorage = false):Array<String>
 	{
+		return switch (str)
+		{
+		}
 	}
 
 	public static function getExternalDirectory(externalDir:String):String
 	{
+		return switch (str)
+		{
+		}
 	}
 	#end
 }
@@ -107,17 +113,10 @@ enum abstract StorageType(String) from String to String
 	
 	public static function fromStr(str:String):StorageType
 	{
-		return switch (str)
-		{
-		}
 	}
 
 	public static function fromStrForce(str:String):StorageType
 	{
-		
-		return switch (str)
-		{
-		}
 	}
 }
 #end
