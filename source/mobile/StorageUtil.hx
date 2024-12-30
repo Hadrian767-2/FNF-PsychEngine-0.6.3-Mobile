@@ -54,8 +54,15 @@ class StorageUtil
 		var daPath:String = '';
 		#if android
 		if (!FileSystem.exists(rootDir + 'storagetype.txt'))
-		{
-		}
+			File.saveContent(rootDir + 'storagetype.txt', ClientPrefs.storageType);
+		var curStorageType:String = File.getContent(rootDir + 'storagetype.txt');
+		daPath = force ? StorageType.fromStrForce(curStorageType) : StorageType.fromStr(curStorageType);
+		daPath = Path.addTrailingSlash(daPath);
+		#elseif ios
+		daPath = LimeSystem.documentsDirectory;
+		#else
+		daPath = Sys.getCwd();
+		#end
 
 		return daPath;
 	}
@@ -64,27 +71,23 @@ class StorageUtil
 	{
 		try
 		{
+			if (!FileSystem.exists('saves'))
+				FileSystem.createDirectory('saves');
+
+			File.saveContent('saves/$fileName', fileData);
+			if (alert)
+				CoolUtil.showPopUp('$fileName has been saved.', "Success!");
 		}
 		catch (e:Exception)
 			if (alert)
-			{
-			}	
+				CoolUtil.showPopUp('$fileName couldn\'t be saved.\n(${e.message})', "Error!")
+			else
+				trace('$fileName couldn\'t be saved. (${e.message})');
 	}
 
 	#if android
 	public static function requestPermissions():Void
 	{
-
-		if (!AndroidEnvironment.isExternalStorageManager())
-		{
-		}
-
-		try
-		{
-		}
-		catch (e:Dynamic)
-		{
-		}
 	}
 
 	public static function checkExternalPaths(?splitStorage = false):Array<String>
@@ -102,6 +105,7 @@ class StorageUtil
 @:runtimeValue
 enum abstract StorageType(String) from String to String
 {
+	
 	public static function fromStr(str:String):StorageType
 	{
 		return switch (str)
@@ -111,6 +115,10 @@ enum abstract StorageType(String) from String to String
 
 	public static function fromStrForce(str:String):StorageType
 	{
+		
+		return switch (str)
+		{
+		}
 	}
 }
 #end
