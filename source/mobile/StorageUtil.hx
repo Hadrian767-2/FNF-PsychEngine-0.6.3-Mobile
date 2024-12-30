@@ -51,5 +51,68 @@ class StorageUtil
 	// root directory, used for handling the saved storage type and path
 	public static final rootDir:String = LimeSystem.applicationStorageDirectory;
 
+	public static function getStorageDirectory(?force:Bool = false):String
+	{
+		var daPath:String = '';
+		#if android
+		if (!FileSystem.exists(rootDir + 'storagetype.txt'))
+		{
+		}
+
+		return daPath;
+	}
+
+	public static function saveContent(fileName:String, fileData:String, ?alert:Bool = true):Void
+	{
+		try
+		{
+		}
+		catch (e:Exception)
+			if (alert)
+			{
+			}	
+	}
+
+	#if android
+	public static function requestPermissions():Void
+	{
+
+		if (!AndroidEnvironment.isExternalStorageManager())
+		{
+		}
+
+		try
+		{
+		}
+		catch (e:Dynamic)
+		{
+		}
+	}
+
+	public static function checkExternalPaths(?splitStorage = false):Array<String>
+	{
+	}
+
+	public static function getExternalDirectory(externalDir:String):String
+	{
+	}
+	#end
+	#end
 }
 
+#if android
+@:runtimeValue
+enum abstract StorageType(String) from String to String
+{
+	public static function fromStr(str:String):StorageType
+	{
+		return switch (str)
+		{
+		}
+	}
+
+	public static function fromStrForce(str:String):StorageType
+	{
+	}
+}
+#end
