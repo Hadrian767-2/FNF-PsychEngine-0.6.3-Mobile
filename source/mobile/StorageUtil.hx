@@ -98,7 +98,6 @@ class StorageUtil
 	{
 	}
 	#end
-	#end
 }
 
 #if android
